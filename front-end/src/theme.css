@@ -1,0 +1,30 @@
+/* ===== THEME VARIABLES ===== */
+:root {
+  /* Light theme */
+  --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --bg-secondary: white;
+  --bg-chart: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --border-color: rgba(229, 231, 235, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.07);
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-row-hover: #f8f9ff;
+  --table-striped: #fafbff;
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-secondary: #1e293b;
+  --bg-chart: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --accent-gradient: linear-gradient(135deg, #818cf8 0%, #a855f7 100%);
+  --table-header-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --table-row-hover: rgba(99, 102, 241, 0.1);
+  --table-striped: rgba(30, 41, 59, 0.5);
+}

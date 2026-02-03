@@ -1,12 +1,18 @@
-import Dashboard from "./pages/Dashboard";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+import { ThemeProvider } from './context/ThemeContext'
+import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <Dashboard />
-    </div>
-  );
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App

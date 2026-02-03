@@ -18,6 +18,11 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    public Expense getExpenseById(Long id) {
+        return expenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + id));
+    }
+
     public List<Expense> getExpenses(LocalDate startDate, String endDate) {
         if (startDate != null && endDate != null) {
             return expenseRepository.findByDateBetween(startDate, LocalDate.parse(endDate));

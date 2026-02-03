@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { getExpenses, addExpense } from "../services/api";
+import { getExpenses, addExpense, updateExpense, deleteExpense } from "../services/api";
 import ExpenseForm from "../components/ExpenseForm";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseChart from "../components/ExpenseChart";
+import ThemeToggle from "../components/ThemeToggle"; // ADD THIS IMPORT
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -90,54 +91,84 @@ function Dashboard() {
     }
   };
 
+  const handleUpdateExpense = async (id, updatedData) => {
+    try {
+      await updateExpense(id, updatedData);  // Call update API
+      fetchExpenses();                       // Refresh the list
+    } catch (error) {
+      console.error("Failed to update expense:", error);
+    }
+  };
+
+  const handleDeleteExpense = async (id) => {
+    console.log("1. Delete button clicked, ID:", id); 
+    try {
+      console.log("2. Calling deleteExpense API with ID:", id); 
+      await deleteExpense(id);
+      console.log("3. API call completed, now fetching..."); 
+      fetchExpenses();
+      console.log("4. All done!"); 
+    } catch (error) {
+      console.error("ERROR in handleDeleteExpense:", error); 
+    }
+  };
+
   const handleFilter = () => {
     fetchExpenses();
   };
 
   return (
     <div className="dashboard">
+      {/* ADD THE THEME TOGGLE HERE */}
+      <ThemeToggle />
+      
       <div className="main-content">
         <header>
-          <h1 className="text-2xl font-bold text-gray-800 ">
-            Personal Finance Tracker
-          </h1>
+          <h1>Personal Finance Tracker</h1>
         </header>
-        <ExpenseForm onAddExpense={handleAddExpense} />
-        <div className="my-4">
-          <h2>Filter</h2>
-          <label className="block mb-2">
-            Start Date:
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="ml-2 p-1 border border-gray-300 rounded"
-            />
-          </label>
-          <label className="block mb-2">
-            End Date:
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="ml-2 p-1 border border-gray-300 rounded"
-            />
-          </label>
-          <button
-            onClick={handleFilter}
-            className="ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Filter
-          </button>
+
+        {/* WRAP EXPENSE FORM IN CONTAINER */}
+        <div className="expense-form-container">
+          <ExpenseForm onAddExpense={handleAddExpense} />
         </div>
+
+        {/* UPDATE FILTER SECTION WITH PROPER STYLING */}
+        <div className="filter-section">
+          <h2>Filter Expenses</h2>
+          <div className="filter-inputs">
+            <label>
+              Start Date:
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </label>
+            <label>
+              End Date:
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </label>
+            <button onClick={handleFilter}>Apply Filter</button>
+          </div>
+        </div>
+
+        {/* ERROR MESSAGE */}
         {error && <div className="text-red-500">{error}</div>}
+
+        {/* EXPENSE LIST */}
         <ExpenseList
           expenses={filteredExpenses}
-          onExpenseUpdated={fetchExpenses}
-          onExpenseDeleted={fetchExpenses}
+          onExpenseUpdated={handleUpdateExpense}     
+          onExpenseDeleted={handleDeleteExpense}     
         />
       </div>
-      <div className="chart-container">
+
+      {/* CHART CONTAINER */}
+      <div className="chart-sidebar">
         <ExpenseChart expenses={filteredExpenses} />
       </div>
     </div>

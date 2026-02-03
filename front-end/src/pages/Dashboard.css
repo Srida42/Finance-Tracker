@@ -1,146 +1,497 @@
+
+:root {
+  /* Light theme */
+  --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --bg-secondary: white;
+  --bg-chart: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --border-color: rgba(229, 231, 235, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.07);
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --table-row-hover: #f8f9ff;
+  --table-striped: #fafbff;
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-secondary: #1e293b;
+  --bg-chart: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --accent-gradient: linear-gradient(135deg, #818cf8 0%, #a855f7 100%);
+  --table-header-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --table-row-hover: rgba(99, 102, 241, 0.1);
+  --table-striped: rgba(30, 41, 59, 0.5);
+}
 .dashboard {
   display: flex;
   min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #2d3748;
+  position: relative;
+  overflow-x: hidden;
 }
 
-header {
-  position: sticky; /* or fixed if you want it to stay at the top of the viewport */
+/* ===== MAIN CONTENT AREA ===== */
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+  padding-right: 600px; /* Increased for larger chart */
+  width: 100%;
+  max-width: none; /* Remove max-width constraint */
+  margin: 0;
+}
+
+/* ===== FORM & FILTER SECTION ===== */
+.expense-form-container,
+.filter-section {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px var(--shadow-color);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 1000px; /* Increased max-width */
+}
+
+/* ===== FILTER INPUTS LAYOUT ===== */
+.filter-section label {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.filter-section input[type="date"] {
+  width: auto;
+  min-width: 180px;
+  margin-right: 1.5rem;
+  margin-bottom: 0;
+}
+
+.filter-section .filter-inputs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-section button {
+  margin-top: 0;
+}
+
+/* ===== HEADER STYLING ===== */
+.dashboard header {
+  position: sticky;
   top: 0;
-  padding-top: 5px;
-  background-color: #ffffff; /* Ensure background color to avoid content overlap */
-  border-bottom: 5px solid #dddddda5; /* Optional border to separate header from content */
-  z-index: 1000; /* Ensure it stays above other content */
+  padding: 1.5rem 0 1.8rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  z-index: 100;
+  margin-bottom: 2rem;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-h1 {
-  font-size: 2rem; /* Adjust as needed */
-  font-weight: bold;
-  background: linear-gradient(90deg, #007bff, #00aaff); /* Blue gradient */
+.dashboard h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  margin: 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
-.main-content {
-  flex: 1;
-  padding-right: 50px;
-  margin-right: 500px; /* Increased margin to accommodate the larger chart container */
+.dashboard h1:after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  margin-top: 0.5rem;
+  border-radius: 2px;
 }
 
-.chart-container {
+/* ===== FORM & FILTER SECTION ===== */
+.expense-form-container,
+.filter-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.expense-form-container:hover,
+.filter-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-section h2:before {
+  content: '📊';
+  font-size: 1.3rem;
+}
+
+/* ===== FORM INPUTS ===== */
+.dashboard label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.dashboard input[type="text"],
+.dashboard input[type="date"],
+.dashboard input[type="number"],
+.dashboard textarea,
+.dashboard select {
+  width: 100%;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #f8fafc;
+  color: #2d3748;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.25rem;
+}
+
+.dashboard input:focus,
+.dashboard textarea:focus,
+.dashboard select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  outline: none;
+  background: white;
+  transform: translateY(-1px);
+}
+
+.dashboard input::placeholder {
+  color: #a0aec0;
+}
+
+/* ===== FORM BUTTONS ===== */
+.dashboard button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dashboard button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.dashboard button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+.dashboard button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.filter-section button {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.95rem;
+}
+
+/* ===== FILTER INPUTS LAYOUT ===== */
+.filter-section label {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
+
+.filter-section input[type="date"] {
+  width: auto;
+  min-width: 180px;
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
+
+/* ===== ERROR MESSAGES ===== */
+.dashboard .text-red-500 {
+  color: #e53e3e;
+  background: #fff5f5;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #e53e3e;
+  margin: 1.5rem 0;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.1);
+}
+
+/* ===== CHART CONTAINER (SIDEBAR) ===== */
+.chart-sidebar {
   position: fixed;
   right: 0;
   top: 0;
-  width: 500px; /* Increased width of the chart container */
-  height: 100%;
-  color: #ffffff;
-  background-color: #000000e5; /* Optional background color */
-  border-left: 1px solid #ffffff; /* Optional border */
-  padding: 20px;
+  width: 550px;
+  height: 100vh;
+  background: var(--bg-chart);
+  padding: 2rem;
   overflow-y: auto;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -5px 0 30px var(--shadow-color);
+  border-left: 1px solid var(--border-color);
+  z-index: 50;
+}
+
+.chart-sidebar > * {
+  width: 100%;
+  max-width: 480px;
+  height: 520px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 25px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+/* Light mode specific chart container styling */
+[data-theme="light"] .chart-sidebar > * {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+/* Chart hover zoom effect */
+.chart-sidebar > *:hover {
+  transform: scale(1.02);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+  .main-content {
+    padding-right: 2.5rem;
+    margin-right: 0;
+  }
+  
+  .chart-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 550px;
+    margin-top: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+  }
+  
+  .chart-sidebar > * {
+    max-width: 90%;
+    height: 500px;
+  }
+  
+  .dashboard {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.5rem;
+  }
+  
+  .dashboard h1 {
+    font-size: 2rem;
+  }
+  
+  .expense-form-container,
+  .filter-section {
+    padding: 1.5rem;
+  }
+  
+  .filter-section label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  
+  .filter-section input[type="date"] {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .chart-sidebar {
+    padding: 1.5rem;
+  }
+  
+  .chart-sidebar > * {
+    padding: 1.5rem;
+    height: 400px;
+  }
+}
+
+/* ===== LOADING STATE ===== */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 8px;
+}
+/* ===== DASHBOARD - MODERN PROFESSIONAL DESIGN ===== */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Update other elements to use theme variables */
+.dashboard header {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+[data-theme="dark"] .dashboard header {
+  background: rgba(30, 41, 59, 0.92);
+}
+
+.expense-form-container,
+.filter-section {
+  background: var(--bg-secondary);
+  box-shadow: 0 6px 25px var(--shadow-color);
+  border: 1px solid var(--border-color);
+}
+
+.filter-section h2 {
+  color: var(--text-primary);
+}
+
+.dashboard label {
+  color: var(--text-secondary);
+}
+
+.dashboard input[type="text"],
+.dashboard input[type="date"],
+.dashboard input[type="number"],
+.dashboard textarea,
+.dashboard select {
+  background: rgba(248, 250, 252, 0.5);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+[data-theme="dark"] .dashboard input[type="text"],
+[data-theme="dark"] .dashboard input[type="date"],
+[data-theme="dark"] .dashboard input[type="number"],
+[data-theme="dark"] .dashboard textarea,
+[data-theme="dark"] .dashboard select {
+  background: rgba(30, 41, 59, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard button {
+  background: var(--accent-gradient);
+}
+
+/* ===== CHART CONTAINER (SIDEBAR) ===== */
+.chart-container {
+  background: var(--bg-chart);
+  border-left: 1px solid var(--border-color);
+}
+.expense-form-container form {
+  background: var(--bg-secondary);
+}
+
+.expense-form-container input {
+  background: rgba(248, 250, 252, 0.5);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+[data-theme="dark"] .expense-form-container input {
+  background: rgba(30, 41, 59, 0.7);
+}
+
+/* ===== CHART SPECIFIC STYLING ===== */
+.chart-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.chart-container > * {
+.no-data-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+/* Ensure chart canvas is properly sized */
+.chart-container canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Fix for chart positioning */
+.chart-container > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-}
-
-/* Input fields */
-input[type="text"],
-input[type="date"],
-input[type="number"],
-textarea {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px 15px;
-  font-size: 16px;
-  transition: all 0.3s ease-in-out;
-  background: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Input focus state */
-input:focus,
-textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-  outline: none;
-  background: #fff;
-}
-
-/* Button style */
-button {
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background: linear-gradient(135deg, #007bff, #00d2ff);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Button hover state */
-button:hover {
-  background: linear-gradient(135deg, #0056b3, #00bfff);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Button focus state */
-button:focus {
-  outline: none;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-}
-
-/* Label style */
-label {
-  display: block;
-  font-size: 16px;
-  font-weight: 500; /* Semi-bold for better visibility */
-  color: #333; /* Dark gray for readability */
-  margin-bottom: 8px; /* Space between label and input */
-  transition: color 0.3s ease-in-out;
-}
-
-/* Label focus state */
-input:focus + label,
-textarea:focus + label {
-  color: #007bff; /* Change color when input is focused */
-}
-
-/* Optional: Floating label effect */
-.input-group {
-  position: relative;
-  margin-bottom: 20px; /* Space between input groups */
-}
-
-.input-group input,
-.input-group textarea {
-  padding-top: 20px; /* Space for the floating label */
-}
-
-.input-group label {
-  position: absolute;
-  top: 10px;
-  left: 12px;
-  background: #fff; /* Background for better contrast */
-  padding: 0 5px;
-  pointer-events: none; /* Prevents label from blocking input */
-  transition: all 0.3s ease-in-out;
-}
-
-.input-group input:focus + label,
-.input-group textarea:focus + label,
-.input-group input:not(:placeholder-shown) + label,
-.input-group textarea:not(:placeholder-shown) + label {
-  top: -10px;
-  left: 10px;
-  font-size: 12px;
-  font-weight: 400;
-  color: #007bff; /* Change color when input is focused */
 }

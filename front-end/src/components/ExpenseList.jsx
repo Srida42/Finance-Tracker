@@ -49,10 +49,12 @@ function ExpenseList({ expenses, onExpenseUpdated, onExpenseDeleted }) {
                 <td>₹ {expense.amount.toFixed(2)}</td>
                 <td>{expense.description}</td>
                 <td>
-                  <button onClick={() => handleUpdate(expense)}>Update</button>
-                  <button onClick={() => handleDelete(expense.id)}>
-                    Delete
-                  </button>
+                  <td>
+                    <div className="action-buttons">
+                      <button onClick={() => handleUpdate(expense)}>Edit</button>
+                      <button onClick={() => handleDelete(expense.id)}>Delete</button>
+                    </div>
+                  </td>
                 </td>
               </tr>
             ))}

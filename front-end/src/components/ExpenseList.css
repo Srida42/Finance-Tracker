@@ -1,50 +1,259 @@
+/* ===== EXPENSE LIST - MODERN PROFESSIONAL STYLING ===== */
 .expense-list {
-  margin-top: 20px;
+  margin-top: 2rem;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: white;
+  transition: all 0.3s ease;
 }
 
-table {
+.expense-list:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.expense-list p {
+  text-align: center;
+  padding: 2.5rem;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  margin: 0;
+}
+
+/* ===== MODERN TABLE STYLING ===== */
+.expense-list table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-th,
-td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
+.expense-list thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.expense-list th {
+  padding: 1.25rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   border: none;
+  position: relative;
+}
+
+.expense-list th:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.expense-list th:last-child:after {
+  display: none;
+}
+
+.expense-list td {
+  padding: 1.1rem 1rem;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  color: #495057;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.expense-list tbody tr {
+  transition: all 0.25s ease;
+}
+
+.expense-list tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== TABLE ROW HOVER EFFECTS ===== */
+.expense-list tbody tr:hover {
+  background-color: #f8f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.1);
+}
+
+.expense-list tbody tr:hover td {
+  color: #495057;
+}
+
+/* ===== STRIPED ROWS (SOFT ALTERNATING) ===== */
+.expense-list tbody tr:nth-child(even) {
+  background-color: #fafbff;
+}
+
+.expense-list tbody tr:nth-child(even):hover {
+  background-color: #f3f4ff;
+}
+
+/* ===== AMOUNT COLUMN STYLING ===== */
+.expense-list td:nth-child(2) {
+  font-weight: 600;
+  color: #28a745;
+  font-family: 'SF Mono', 'Courier New', monospace;
+}
+
+/* ===== ACTION BUTTONS - MODERN DESIGN ===== */
+.expense-list .action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.expense-list button {
+  margin-right: 0;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
-  border-radius: 3px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-button:hover {
-  background-color: #0056b3;
+/* Update button */
+.expense-list button:first-of-type {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
 }
 
-button.delete {
-  background-color: #dc3545;
+.expense-list button:first-of-type:hover {
+  background: linear-gradient(135deg, #3a9cf5 0%, #00d9e6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
 }
 
-button.delete:hover {
-  background-color: #c82333;
+/* Delete button */
+.expense-list button:last-of-type {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.expense-list button:last-of-type:hover {
+  background: linear-gradient(135deg, #e684f2 0%, #e84c5e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+}
+
+/* Button active state */
+.expense-list button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive buttons */
+@media (max-width: 768px) {
+  .expense-list .action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: auto;
+  }
+  
+  .expense-list button {
+    width: 100%;
+    margin-bottom: 0;
+  }
+}
+
+/* ===== EXPENSE LIST - MODERN PROFESSIONAL STYLING ===== */
+.expense-list {
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.expense-list p {
+  color: var(--text-secondary);
+  background: rgba(248, 250, 252, 0.3);
+}
+
+[data-theme="dark"] .expense-list p {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+/* ===== MODERN TABLE STYLING ===== */
+.expense-list thead {
+  background: var(--table-header-bg);
+}
+
+.expense-list td {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ===== TABLE ROW HOVER EFFECTS ===== */
+.expense-list tbody tr:hover {
+  background-color: var(--table-row-hover);
+}
+
+[data-theme="dark"] .expense-list tbody tr:hover {
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.2);
+}
+
+/* ===== STRIPED ROWS (SOFT ALTERNATING) ===== */
+.expense-list tbody tr:nth-child(even) {
+  background-color: var(--table-striped);
+}
+
+.expense-list tbody tr:nth-child(even):hover {
+  background-color: var(--table-row-hover);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .expense-list {
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+  
+  .expense-list th,
+  .expense-list td {
+    padding: 0.85rem 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .expense-list button {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    display: block;
+    width: 100%;
+  }
+  
+  .expense-list button:first-of-type {
+    margin-bottom: 0.5rem;
+  }
+}
+/* Fix for action buttons container */
+.expense-list .action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  min-width: 180px;
+}
+
+.expense-list td:last-child {
+  width: 200px;
+  min-width: 200px;
+}
+
+/* Make sure buttons don't wrap */
+.expense-list button {
+  white-space: nowrap;
+  flex-shrink: 0;
 }

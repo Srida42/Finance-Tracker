@@ -28,6 +28,12 @@ public class ExpenseController {
         return expenseService.getExpenses(startDate, String.valueOf(endDate));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Expense> getExpenseById(@PathVariable Long id) {
+        Expense expense = expenseService.getExpenseById(id);
+        return ResponseEntity.ok(expense);
+    }
+
     @GetMapping("/total")
     public Double getTotalAmount(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         return expenseService.getTotalAmount(startDate, endDate);
