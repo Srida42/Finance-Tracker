@@ -1,259 +1,227 @@
-/* ===== EXPENSE LIST - MODERN PROFESSIONAL STYLING ===== */
-.expense-list {
-  margin-top: 2rem;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  background: white;
-  transition: all 0.3s ease;
-}
+/* ===== MODERN EXPENSE LIST - CARD BASED DESIGN ===== */
 
-.expense-list:hover {
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-}
-
-.expense-list p {
-  text-align: center;
-  padding: 2.5rem;
-  color: #6c757d;
-  font-style: italic;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  margin: 0;
-}
-
-/* ===== MODERN TABLE STYLING ===== */
-.expense-list table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.expense-list thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.expense-list th {
-  padding: 1.25rem 1rem;
+.expense-list-container h2 {
+  font-size: 1.8rem;
   font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  border: none;
-  position: relative;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
-.expense-list th:after {
+.expense-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.expense-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.expense-card::before {
   content: '';
   position: absolute;
-  right: 0;
-  top: 25%;
-  height: 50%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.expense-list th:last-child:after {
-  display: none;
+.expense-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-medium);
+  transform: translateX(4px);
 }
 
-.expense-list td {
-  padding: 1.1rem 1rem;
-  border: none;
-  border-bottom: 1px solid #f0f0f0;
-  color: #495057;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
+.expense-card:hover::before {
+  opacity: 1;
 }
 
-.expense-list tbody tr {
-  transition: all 0.25s ease;
+.expense-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-.expense-list tbody tr:last-child td {
-  border-bottom: none;
+.expense-info {
+  flex: 1;
 }
 
-/* ===== TABLE ROW HOVER EFFECTS ===== */
-.expense-list tbody tr:hover {
-  background-color: #f8f9ff;
-  transform: translateY(-2px);
-  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.1);
-}
-
-.expense-list tbody tr:hover td {
-  color: #495057;
-}
-
-/* ===== STRIPED ROWS (SOFT ALTERNATING) ===== */
-.expense-list tbody tr:nth-child(even) {
-  background-color: #fafbff;
-}
-
-.expense-list tbody tr:nth-child(even):hover {
-  background-color: #f3f4ff;
-}
-
-/* ===== AMOUNT COLUMN STYLING ===== */
-.expense-list td:nth-child(2) {
+.expense-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #28a745;
-  font-family: 'SF Mono', 'Courier New', monospace;
-}
-
-/* ===== ACTION BUTTONS - MODERN DESIGN ===== */
-.expense-list .action-buttons {
-  display: flex;
-  gap: 0.5rem;
-  min-width: 200px;
-}
-
-.expense-list button {
-  margin-right: 0;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: 0.3px;
   text-transform: uppercase;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Update button */
-.expense-list button:first-of-type {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-}
-
-.expense-list button:first-of-type:hover {
-  background: linear-gradient(135deg, #3a9cf5 0%, #00d9e6 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
-}
-
-/* Delete button */
-.expense-list button:last-of-type {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-}
-
-.expense-list button:last-of-type:hover {
-  background: linear-gradient(135deg, #e684f2 0%, #e84c5e 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
-}
-
-/* Button active state */
-.expense-list button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive buttons */
-@media (max-width: 768px) {
-  .expense-list .action-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: auto;
-  }
-  
-  .expense-list button {
-    width: 100%;
-    margin-bottom: 0;
-  }
-}
-
-/* ===== EXPENSE LIST - MODERN PROFESSIONAL STYLING ===== */
-.expense-list {
-  background: var(--bg-secondary);
-  box-shadow: 0 4px 20px var(--shadow-color);
-}
-
-.expense-list p {
+  letter-spacing: 0.05em;
   color: var(--text-secondary);
-  background: rgba(248, 250, 252, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
 }
 
-[data-theme="dark"] .expense-list p {
-  background: rgba(30, 41, 59, 0.5);
-}
-
-/* ===== MODERN TABLE STYLING ===== */
-.expense-list thead {
-  background: var(--table-header-bg);
-}
-
-.expense-list td {
+.expense-description {
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text-primary);
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.25rem;
 }
 
-/* ===== TABLE ROW HOVER EFFECTS ===== */
-.expense-list tbody tr:hover {
-  background-color: var(--table-row-hover);
+.expense-date {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
 }
 
-[data-theme="dark"] .expense-list tbody tr:hover {
-  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.2);
+.expense-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Space Mono', monospace;
+  white-space: nowrap;
 }
 
-/* ===== STRIPED ROWS (SOFT ALTERNATING) ===== */
-.expense-list tbody tr:nth-child(even) {
-  background-color: var(--table-striped);
-}
-
-.expense-list tbody tr:nth-child(even):hover {
-  background-color: var(--table-row-hover);
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .expense-list {
-    border-radius: 8px;
-    margin-top: 1.5rem;
-  }
-  
-  .expense-list th,
-  .expense-list td {
-    padding: 0.85rem 0.75rem;
-    font-size: 0.9rem;
-  }
-  
-  .expense-list button {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
-    display: block;
-    width: 100%;
-  }
-  
-  .expense-list button:first-of-type {
-    margin-bottom: 0.5rem;
-  }
-}
-/* Fix for action buttons container */
-.expense-list .action-buttons {
+.expense-actions {
   display: flex;
   gap: 0.5rem;
-  justify-content: flex-start;
-  min-width: 180px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
 }
 
-.expense-list td:last-child {
-  width: 200px;
-  min-width: 200px;
+.expense-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-/* Make sure buttons don't wrap */
-.expense-list button {
-  white-space: nowrap;
-  flex-shrink: 0;
+.expense-btn-edit {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: rgba(79, 172, 254, 0.3);
+  color: #4facfe;
+}
+
+.expense-btn-edit:hover {
+  background: rgba(79, 172, 254, 0.2);
+  border-color: rgba(79, 172, 254, 0.5);
+  transform: translateY(-2px);
+}
+
+.expense-btn-delete {
+  background: rgba(245, 87, 108, 0.1);
+  border-color: rgba(245, 87, 108, 0.3);
+  color: #f5576c;
+}
+
+.expense-btn-delete:hover {
+  background: rgba(245, 87, 108, 0.2);
+  border-color: rgba(245, 87, 108, 0.5);
+  transform: translateY(-2px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-message {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Category Colors */
+.expense-category[data-category="Food"] {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.expense-category[data-category="Shopping"] {
+  background: rgba(240, 147, 251, 0.1);
+  color: #f093fb;
+}
+
+.expense-category[data-category="Health & Fitness"] {
+  background: rgba(156, 39, 176, 0.1);
+  color: #9c27b0;
+}
+
+.expense-category[data-category="Transport"] {
+  background: rgba(0, 242, 254, 0.1);
+  color: #00f2fe;
+}
+
+.expense-category[data-category="Education"] {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196f3;
+}
+
+.expense-category[data-category="Entertainment"] {
+  background: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
+}
+
+.expense-category[data-category="Other"] {
+  background: rgba(158, 158, 158, 0.1);
+  color: #9e9e9e;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .expense-card {
+    padding: 1.25rem;
+  }
+  
+  .expense-card-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .expense-amount {
+    font-size: 1.75rem;
+  }
+  
+  .expense-actions {
+    flex-direction: column;
+  }
 }

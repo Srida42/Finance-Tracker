@@ -2,26 +2,27 @@ import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import "./ExpenseChart.css";
-import { useTheme } from "../context/ThemeContext";
 
 function ExpenseChart({ expenses }) {
-  const { theme } = useTheme();
-  
-  // Handle case with no expenses
   if (expenses.length === 0) {
     return (
-      <div className="no-data-message">
-        <p>No expenses to display. Add some expenses to see the chart!</p>
+      <div className="chart-container">
+        <h2>Expense Trends</h2>
+        <div className="no-data-message">
+          <div className="no-data-icon">📊</div>
+          <div className="no-data-title">No data to visualize</div>
+          <div className="no-data-text">
+            Add some expenses to see your spending trends
+          </div>
+        </div>
       </div>
     );
   }
 
-  // Sort expenses by date in ascending order (oldest to newest)
   const sortedExpenses = [...expenses].sort((a, b) => {
     return new Date(a.date) - new Date(b.date);
   });
 
-  // Extract dates and amounts from SORTED expenses
   const dates = sortedExpenses.map((expense) =>
     new Date(expense.date).toLocaleDateString('en-IN', {
       day: 'numeric',
@@ -31,98 +32,67 @@ function ExpenseChart({ expenses }) {
   );
   const amounts = sortedExpenses.map((expense) => expense.amount);
 
-  // Theme-based colors - FIXED FOR LIGHT MODE
-  const isDark = theme === 'dark';
-  
-  // Background colors for chart container
-  const backgroundColor = isDark 
-    ? 'rgba(99, 102, 241, 0.2)' 
-    : 'rgba(102, 126, 234, 0.15)';
-  
-  const borderColor = isDark 
-    ? '#818cf8' 
-    : '#667eea';
-    
-  const pointColor = isDark 
-    ? '#a855f7' 
-    : '#764ba2';
-    
-  const gridColor = isDark 
-    ? 'rgba(255, 255, 255, 0.1)' 
-    : 'rgba(0, 0, 0, 0.08)';
-    
-  const textColor = isDark 
-    ? '#f1f5f9' 
-    : '#2d3748';
-    
-  const tooltipBg = isDark 
-    ? '#1e293b' 
-    : '#ffffff';
-    
-  const tooltipBorder = isDark 
-    ? '#818cf8' 
-    : '#667eea';
-
-  // Define chart data with better styling
   const data = {
     labels: dates,
     datasets: [
       {
-        label: "Expenses Over Time",
+        label: "Spending Over Time",
         data: amounts,
         fill: true,
-        backgroundColor: backgroundColor,
-        borderColor: borderColor,
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, 'rgba(102, 126, 234, 0.3)');
+          gradient.addColorStop(1, 'rgba(102, 126, 234, 0.0)');
+          return gradient;
+        },
+        borderColor: '#667eea',
         borderWidth: 3,
-        pointBackgroundColor: pointColor,
-        pointBorderColor: isDark ? '#ffffff' : '#ffffff',
-        pointBorderWidth: 2,
+        pointBackgroundColor: '#667eea',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 3,
         pointRadius: 6,
         pointHoverRadius: 8,
-        tension: 0.3,
+        pointHoverBackgroundColor: '#764ba2',
+        pointHoverBorderColor: '#ffffff',
+        pointHoverBorderWidth: 3,
+        tension: 0.4,
       },
     ],
   };
 
-  // Chart options with better sizing and theme support
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
-        labels: {
-          color: textColor,
-          font: {
-            size: 15, 
-            weight: 'bold',
-            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-          },
-          padding: 10,
-          usePointStyle: true,
-          pointStyle: 'circle',
-        }
+        display: false,
       },
       tooltip: {
-        backgroundColor: tooltipBg,
-        titleColor: textColor,
-        bodyColor: textColor,
-        borderColor: tooltipBorder,
-        borderWidth: 6,
-        cornerRadius: 8,
-        padding: 12,
+        backgroundColor: 'rgba(19, 19, 24, 0.95)',
+        titleColor: '#ffffff',
+        bodyColor: '#a0a0b0',
+        borderColor: 'rgba(102, 126, 234, 0.5)',
+        borderWidth: 1,
+        cornerRadius: 12,
+        padding: 16,
+        displayColors: false,
         titleFont: {
-          family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-          size: 14, 
-          weight: 'bold'
+          family: "'Outfit', sans-serif",
+          size: 14,
+          weight: '600'
         },
         bodyFont: {
-          family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-          size: 14
+          family: "'Space Mono', monospace",
+          size: 16,
+          weight: '700'
         },
         callbacks: {
           label: function(context) {
-            return `₹${context.parsed.y.toLocaleString('en-IN')}`;
+            return `₹${context.parsed.y.toLocaleString('en-IN', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })}`;
           }
         }
       }
@@ -130,57 +100,41 @@ function ExpenseChart({ expenses }) {
     scales: {
       y: {
         beginAtZero: true,
+        border: {
+          display: false
+        },
         grid: {
-          color: gridColor,
+          color: 'rgba(255, 255, 255, 0.06)',
           drawBorder: false,
         },
         ticks: {
-          color: textColor,
+          color: '#a0a0b0',
           font: {
-            size: 13, 
-            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            size: 12,
+            family: "'Outfit', sans-serif"
           },
-          padding: 10,
+          padding: 12,
           callback: function(value) {
             return '₹' + value.toLocaleString('en-IN');
           }
         },
-        title: {
-          display: true,
-          text: "Amount (₹)",
-          color: textColor,
-          font: {
-            size: 16, 
-            weight: 'bold',
-            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-          },
-          padding: { top: 10, bottom: 20 }
-        },
       },
       x: {
+        border: {
+          display: false
+        },
         grid: {
-          color: gridColor,
+          color: 'rgba(255, 255, 255, 0.06)',
           drawBorder: false,
         },
         ticks: {
-          color: textColor,
+          color: '#a0a0b0',
           font: {
-            size: 12, 
-            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+            size: 11,
+            family: "'Outfit', sans-serif"
           },
           maxRotation: 45,
-          padding: 10,
-        },
-        title: {
-          display: true,
-          text: "Date",
-          color: textColor,
-          font: {
-            size: 16, 
-            weight: 'bold',
-            family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-          },
-          padding: { top: 20, bottom: 10 }
+          padding: 12,
         },
       },
     },
@@ -189,26 +143,25 @@ function ExpenseChart({ expenses }) {
       mode: 'index',
     },
     animation: {
-      duration: 1000,
+      duration: 1200,
       easing: 'easeInOutQuart'
     },
     elements: {
       line: {
-        tension: 0.3
+        tension: 0.4
       }
     }
   };
 
   return (
-  <div className="chart-wrapper">
-    <div style={{ 
-      width: '100%', 
-      height: '480px',
-      position: 'relative'
-    }}>
-      <Line data={data} options={options} />
+    <div className="chart-container">
+      <h2>Expense Trends</h2>
+      <div className="chart-wrapper">
+        <div className="chart-canvas">
+          <Line data={data} options={options} />
+        </div>
+      </div>
     </div>
-  </div>
   );
 }
 
