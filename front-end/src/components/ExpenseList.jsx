@@ -12,6 +12,7 @@ function ExpenseList({ expenses, onExpenseUpdated, onExpenseDeleted }) {
     );
     const updatedDate = prompt("Enter new date (YYYY-MM-DD):", expense.date);
     const updatedCategory = prompt("Enter new category:", expense.category || "Other");
+    const updatedType = prompt("Enter new type (Credit/Debit):", expense.type || "Debit");
 
     if (updatedDescription && updatedAmount && updatedDate) {
       onExpenseUpdated(expense.id, {
@@ -20,6 +21,7 @@ function ExpenseList({ expenses, onExpenseUpdated, onExpenseDeleted }) {
         amount: updatedAmount,
         date: updatedDate,
         category: updatedCategory,
+        type: updatedType,
       });
     }
   };
@@ -79,23 +81,23 @@ function ExpenseList({ expenses, onExpenseUpdated, onExpenseDeleted }) {
                   })}
                 </div>
               </div>
-              <div className="expense-amount">
-                ₹{expense.amount.toLocaleString('en-IN', {
+              <div className={`expense-amount ${expense.type === 'Credit' ? 'credit' : 'debit'}`}>
+                {expense.type === 'Credit' ? '+' : '-'} ₹{expense.amount.toLocaleString('en-IN', {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
                 })}
               </div>
             </div>
             <div className="expense-actions">
-              <button 
-                className="expense-btn expense-btn-edit" 
+              <button
+                className="expense-btn expense-btn-edit"
                 onClick={() => handleUpdate(expense)}
               >
                 <span>✏️</span>
                 <span>Edit</span>
               </button>
-              <button 
-                className="expense-btn expense-btn-delete" 
+              <button
+                className="expense-btn expense-btn-delete"
                 onClick={() => handleDelete(expense.id)}
               >
                 <span>🗑️</span>
@@ -105,7 +107,7 @@ function ExpenseList({ expenses, onExpenseUpdated, onExpenseDeleted }) {
           </div>
         ))}
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -22,6 +22,6 @@ public class Expense {
     private Double amount;
     private String category;
     private LocalDate date;
-
+    private String type; // "Credit" or "Debit"
 
 }

@@ -6,6 +6,7 @@ function ExpenseForm({ onAddExpense }) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("Food");
+  const [type, setType] = useState("Debit");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,13 +15,15 @@ function ExpenseForm({ onAddExpense }) {
         description, 
         amount: parseFloat(amount), 
         date,
-        category 
+        category,
+        type 
       };
       await onAddExpense(newExpense);
       setDescription("");
       setAmount("");
       setDate("");
       setCategory("Food");
+      setType("Debit");
     }
   };
 
@@ -68,6 +71,19 @@ function ExpenseForm({ onAddExpense }) {
             <option value="Education">📚 Education</option>
             <option value="Entertainment">🎮 Entertainment</option>
             <option value="Other">📦 Other</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="type">Type</label>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          >
+            <option value="Debit">Debit</option>
+            <option value="Credit">Credit</option>
           </select>
         </div>
         

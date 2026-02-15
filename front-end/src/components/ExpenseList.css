@@ -225,3 +225,13 @@
     flex-direction: column;
   }
 }
+
+.expense-amount.credit {
+  color: #2e7d32; /* Green */
+  font-weight: bold;
+}
+
+.expense-amount.debit {
+  color: #c62828; /* Red */
+  font-weight: bold;
+}
