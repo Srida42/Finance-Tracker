@@ -1,0 +1,237 @@
+/* ===== MODERN EXPENSE LIST - CARD BASED DESIGN ===== */
+
+.expense-list-container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.expense-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.expense-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.expense-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.expense-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-medium);
+  transform: translateX(4px);
+}
+
+.expense-card:hover::before {
+  opacity: 1;
+}
+
+.expense-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.expense-info {
+  flex: 1;
+}
+
+.expense-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.expense-description {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.expense-date {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.expense-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Space Mono', monospace;
+  white-space: nowrap;
+}
+
+.expense-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.expense-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.expense-btn-edit {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: rgba(79, 172, 254, 0.3);
+  color: #4facfe;
+}
+
+.expense-btn-edit:hover {
+  background: rgba(79, 172, 254, 0.2);
+  border-color: rgba(79, 172, 254, 0.5);
+  transform: translateY(-2px);
+}
+
+.expense-btn-delete {
+  background: rgba(245, 87, 108, 0.1);
+  border-color: rgba(245, 87, 108, 0.3);
+  color: #f5576c;
+}
+
+.expense-btn-delete:hover {
+  background: rgba(245, 87, 108, 0.2);
+  border-color: rgba(245, 87, 108, 0.5);
+  transform: translateY(-2px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-message {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Category Colors */
+.expense-category[data-category="Food"] {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.expense-category[data-category="Shopping"] {
+  background: rgba(240, 147, 251, 0.1);
+  color: #f093fb;
+}
+
+.expense-category[data-category="Health & Fitness"] {
+  background: rgba(156, 39, 176, 0.1);
+  color: #9c27b0;
+}
+
+.expense-category[data-category="Transport"] {
+  background: rgba(0, 242, 254, 0.1);
+  color: #00f2fe;
+}
+
+.expense-category[data-category="Education"] {
+  background: rgba(33, 150, 243, 0.1);
+  color: #2196f3;
+}
+
+.expense-category[data-category="Entertainment"] {
+  background: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
+}
+
+.expense-category[data-category="Other"] {
+  background: rgba(158, 158, 158, 0.1);
+  color: #9e9e9e;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .expense-card {
+    padding: 1.25rem;
+  }
+  
+  .expense-card-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .expense-amount {
+    font-size: 1.75rem;
+  }
+  
+  .expense-actions {
+    flex-direction: column;
+  }
+}
+
+.expense-amount.credit {
+  color: #2e7d32; /* Green */
+  font-weight: bold;
+}
+
+.expense-amount.debit {
+  color: #c62828; /* Red */
+  font-weight: bold;
+}
